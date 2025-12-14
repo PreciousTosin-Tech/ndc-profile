@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>National Defence College | Nigeria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>">
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #082410 0%, #1e5c5f 100%);
+            --secondary-gradient: linear-gradient(135deg, #43e97b 0%, #113431 100%);
+            --accent-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--primary-gradient);
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Header - Responsive */
+        .header {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-left: 25%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 200px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Search Section - Responsive */
+        .search-section {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .search-box {
+            flex: 1;
+            background: white;
+            border: 2px solid #1e5c5f;
+            border-radius: 12px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box:focus-within {
+            border-color: #1e5c5f;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 15px 8px;
+            font-size: 1rem;
+            background: transparent;
+            min-width: 0;
+        }
+
+        .search-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            min-width: 150px;
+        }
+
+        .stats-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            padding: 30px 0;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Controls - Responsive */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .controls-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .scroll-indicator {
+            color: white;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .controls-right {
+            display: flex;
+            gap: 12px;
+        }
+
+        .control-btn {
+            background: white;
+            color: #1e5c5f;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Card Grid Container - Responsive */
+ 
+        .card-grid-container{
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Responsive Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-height: 1000px;
+            overflow-y: auto;
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+
+        /* Grid configurations for different screens */
+        .card-grid.grid-1 { grid-template-columns: repeat(1, 1fr); }
+        .card-grid.grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .card-grid.grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .card-grid.grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .card-grid.grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+        /* Custom scrollbar for all browsers */
+        .card-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .card-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .card-grid::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 4px;
+        }
+
+        .card-grid::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #1e5c5f, #1e5c5f);
+        }
+
+        /* Cards - Responsive */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+            min-height: 250px;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Card Image Container */
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            background: var(--primary-gradient);
+        }
+
+        /* Card Badge */
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e5c5f;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Card Content */
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: rgb(222, 240, 230);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            color: white;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .card-destignation {
+            font-weight: 800;
+            color: #667eea;
+            font-size: 1.3rem;
+        }
+
+        /* Read More Button */
+        .read-more-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(5, 89, 62, 0.4);
+        }
+
+        .read-more-btn:active {
+            transform: translateY(0);
+        }
+
+        /* No Results */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            margin: auto;
+            width: 100%;
+        }
+
+        /* DETAIL PAGE - Responsive */
+        .detail-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 2000;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .detail-page.active {
+            display: block;
+        }
+
+        .detail-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 25px 0;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .detail-title-section {
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .detail-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .detail-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .detail-content {
+            padding: 40px 0;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .detail-grid {
+                grid-template-columns: 1fr 1.2fr;
+            }
+        }
+
+        .detail-image-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .detail-destignation-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .detail-destignation {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .detail-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .rating-text {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .detail-description {
+            color: #333;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .detail-features {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+
+        .detail-features h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 15px;
+            padding-top: 25px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 18px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .buy-btn {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .wishlist-btn {
+            background: white;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .wishlist-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: #666;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: #667eea;
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive Breakpoints */
+        
+        /* Extra Small Devices (Phones) */
+        @media (max-width: 575.98px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .search-section {
+                min-width: 100%;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                padding: 15px;
+                justify-content: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .controls-left {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls-right {
+                justify-content: center;
+            }
+            
+            .card-grid-container {
+                padding: 15px;
+                height: 60vh;
+            }
+            
+            .detail-title {
+                font-size: 1.8rem;
+            }
+            
+            .detail-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Small Devices (Tablets) */
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .controls-left {
+                flex-wrap: wrap;
+            }
+            
+            .detail-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Medium Devices (Tablets Landscape / Small Laptops) */
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .card-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Large Devices (Desktops) */
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .card-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Extra Large Devices (Large Desktops) */
+        @media (min-width: 1200px) {
+            .card-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        /* Ultra Wide Screens */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1800px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header, .controls, .footer, .back-btn, .action-btn {
+                display: none !important;
+            }
+            
+            .card-grid-container {
+                height: auto;
+                background: white;
+                box-shadow: none;
+            }
+            
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .detail-page {
+                position: static;
+                background: white;
+            }
+        }
+
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .card-image, .detail-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            }
+            
+            body {
+                background: var(--primary-gradient);
+                color: #e0e0e0;
+            }
+            
+            .header {
+                background: rgba(30, 30, 46, 0.97);
+                color: #e0e0e0;
+            }
+            
+            .search-box {
+                background: #1e1e2e;
+                border-color: #333;
+            }
+            
+            .search-box input {
+                color: #e0e0e0;
+            }
+            
+            .card {
+                background: #1e1e2e;
+                color: #e0e0e0;
+            }
+            
+            .card-title {
+                color: #e0e0e0;
+            }
+            
+            .card-description {
+                color: #b0b0b0;
+            }
+            
+            .card-footer {
+                border-top-color: #333;
+            }
+            
+            .footer {
+                background: rgba(30, 30, 46, 0.95);
+            }
+            
+            .detail-page {
+                background: #121212;
+                color: #e0e0e0;
+            }
+            
+            .detail-features {
+                background: #1e1e2e;
+            }
+            
+            .feature-item {
+                background: #2d2d44;
+            }
+            
+            .wishlist-btn {
+                background: #1e1e2e;
+                color: #e0e0e0;
+                border-color: #333;
+            }
+            
+            .footer-link {
+                color: #b0b0b0;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .card:hover {
+                transform: none;
+            }
+            
+            .search-btn:hover,
+            .control-btn:hover,
+            .read-more-btn:hover,
+            .action-btn:hover,
+            .back-btn:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Page...</div>
+    </div>
+
+    <!-- Main Grid Page -->
+    <div id="main-page">
+        <!-- Header -->
+        
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        
+                                                
+                                 <div>
+                      <div class="container">
+                          <header>
+                            <div class="logo">
+                                <center><img src="img/ndc logo.jpg"></center>
+                            </div>
+                              <h1>National Defence College, Nigeria</h1>
+                              <p class="subtitle">Millitary Training Institution for the Nigerian Armed Forces</p>
+                          </header>
+                    </div>
+                    
+                    <div class="search-section">
+                        <div class="search-container">
+                            <div class="search-box">
+                                <i class="fas fa-search" style="color: #1e5c5f; margin-right: 10px;"></i>
+                                <input type="text" id="search-input" placeholder="Search by names, categories..." autocomplete="off">
+                            </div>
+                            <button class="search-btn" id="search-btn">
+                                <i class="fas fa-search"></i>
+                                <span>Search</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="stats-section">
+                        <div class="stats-item">
+                            <div class="stats-value" id="product-count">0</div>
+                            <div class="stats-label">Products</div>
+                        </div>
+                        <div class="stats-item">
+                            <div class="stats-value" id="filter-count">0</div>
+                            <div class="stats-label">Showing</div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Controls -->
+                <div class="controls">
+                    <div class="controls-left">
+                        <div class="scroll-indicator">
+                            <i class="fas fa-play" id="scroll-icon"></i>
+                            <span id="scroll-text">Auto-scrolling</span>
+                        </div>
+                        <!-- <div class="view-options">
+                            <button class="view-btn active" data-columns="2">
+                                <i class="fas fa-th-large"></i>
+                                <span>Grid</span>
+                            </button>
+                            <button class="view-btn" data-columns="1">
+                                <i class="fas fa-list"></i>
+                                <span>List</span>
+                            </button>
+                        </div> -->
+                    </div>
+                    <div class="controls-right">
+                        <button class="control-btn" id="pause-btn" title="Pause/Resume Auto-scroll">
+                            <i class="fas fa-pause" id="pause-icon"></i>
+                        </button>
+                        <button class="control-btn" id="scroll-up-btn" title="Scroll Up">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <button class="control-btn" id="scroll-down-btn" title="Scroll Down">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Grid Container -->
+                <div class="card-grid-container">
+                    <div class="card-grid grid-4" id="card-grid">
+                        <!-- Cards will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- <div class="footer-logo">Product Explorer</div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Home</a>
+                        <a href="#" class="footer-link">Products</a>
+                        <a href="#" class="footer-link">Categories</a>
+                        <a href="#" class="footer-link">About</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div> -->
+                    <div class="footer-copyright">
+                        &copy; 2025 National Defence College. All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Detail Page -->
+    <div class="detail-page" id="detail-page">
+        <div class="detail-header">
+            <div class="container">
+                <div class="detail-nav">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div></div> <!-- Spacer -->
+                </div>
+                <div class="detail-title-section">
+                    <h1 class="detail-title" id="detail-title">name</h1>
+                    <p class="detail-subtitle" id="detail-category">Category</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-content">
+            <div class="container">
+                <div class="detail-grid">
+                    <div class="detail-image-container">
+                        <img id="detail-image" class="detail-image" alt="Product Image">
+                    </div>
+                    
+                    <div class="detail-info">
+                        <div class="detail-destignation-section">
+                            <div class="detail-destignation" id="detail-destignation"></div>
+                            <div class="detail-rating">
+                                <div class="stars">
+                                    <!-- <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i> -->
+                                </div>
+                                <span class="rating-text"></span>
+                            </div>
+                        </div>
+                        
+                        <p class="detail-description" id="detail-description">
+                           Category name will appear here...
+                        </p>
+                        
+                        <div class="detail-features">
+                            <h3><i class=""></i></h3>
+                            <div class="feature-grid" id="feature-grid">
+                                <!-- Features will be added by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="detail-actions">
+                            <button class="action-btn buy-btn" onclick="addToCart()">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="action-btn wishlist-btn" onclick="addToWishlist()">
+                                <i class="fas fa-heart"></i> Add to Wishlist
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extensive product data with rich information
+        const productData = [
+            {
+                id: 1,
+                title: "Commodore Ajomabi Oride",
+                description: "Commodore Ajomabi Oride was born on 1 Aug 74 and hails from Isoko South Local Government Area of Delta State. He was commissioned into the Nigerian Navy as a member of 45 Regular Course. He held several appointments among which include Deputy Director Plans NHQ, Assistant Director, Plans NHQ, Commanding Officer NNS THUNDER, Executive Officer VICTORY and Deputy Defence Attache Washington DC. The senior officer had International Sea voyages from California USA to Lagos Nigeria and from Chidong China to Lagos Nigeria. Major Courses attended by Commodore Oride include Sub technical Course and Officers Long Course,  NNS QUORRA, Junior and Senior Staff Courses at AFCSC Jaji and the Strategic Course at the National Defence College Abuja. Other minor courses attended include Civil-Military Response to Terrorism at Monterey California and Foreign Military Sales Course at Dayton Ohio.Commodore Oride also attended the following Civil courses; Postgraduate Diploma in Electrical/Electronics at Obafemi Awolowo University, Ile-Ife; Masters in International Affairs and Strategic Studies, NDA and MSc International Relations and Security Studies from University of Ibadan. He is the author of 2 books; THE MAN DAVID – HIS CHARACTER and BEYOND FAMILIAR WATERS: MEMOIRS OF A NIGERIAN SAILOR. His hobbies are playing Soccer and Table Tennis.",
+            //    destignation: 349.99,
+                image:"img/ajomabi.png", 
+                category: "Director, Department of Curriculum and Programmes Development (DCPD)",
+                features: [
+                    // "Active Noise Cancellation Pro",
+                    // "40-hour battery life with fast charging",
+                    // "Hi-Res Audio certified",
+                    // "Memory foam ear cushions",
+                    // "Multi-device Bluetooth 5.2",
+                    // "Built-in voice assistant support",
+                    // "Foldable design with travel case",
+                    // "Water-resistant (IPX4)"
+                ],
+                // rating: 4.8,
+                // reviews: 234
+            },
+            {
+                id: 2,
+                title: "Brigadier General Edward Adeyemi KOLEOSO",
+                description: "Brigadier General Edward Adeyemi Koleoso started his military career in 1993 at Nigerian Defence Academy as a member of 45th Regular Course. Edward graduated from the Academy in 1998 with a Bachelors of Engineering degree in Electrical Electronic and was commissioned into the Nigerian Army Electrical and Mechanical Engineers (NAEME) Corps as a Second Lieutenant.During the course of his career, Edward has attended several military courses some of which include; Armoured Fighting Vehicle Course, Officers’ Armoured and Instrument Course, EME Young Officers’, Company Commanders’ and Commanding Officers’ Courses all at Nigerian Army School of Electrical and Mechanical Engineering (NASEME) Auchi, Nigeria. He also had his Junior and Senior Staff Courses at Armed Forces Command and Staff College – Jaji, Nigeria as well as his Higher Defence and Strategic Course at the National Defence College, Nigeria. Furthermore, he holds a Post Graduate Diploma Certificate in Business Management from Kaduna Polytechnic and a Masters of Science Certificate in Gun Systems Design from Cranfield University, United Kingdom. He is a member of Nigerian Society of Engineers, Council for the Regulation of Engineering in Nigeria and an alumnus of Harvard University, United States of America where he did his Senior Executive Fellows Course.Brigadier General Koleoso has served the Country in different capacity during his military career, some of the appoints held are; Officer Commanding Armament and Radar Department in Artillery Base Workshop, Military Assistant to Director General Defence Industries Corporation of Nigeria, Commanding Officer of 910 Division Workshop, Commanding Officer of 1012 Brigade Workshop and Commanding Officer of Guards Brigade Workshop. Others include Acting Deputy Commandant and Director of Studies at Nigerian Army School of Electrical and Mechanical Engineering, Acting Director of Equipment Services and Weapon Engineering both at Headquarters NAEME as well as Acting Managing Director Nigerian Army Special Vehicle Plant  amongst others. He is a thorough breed engineer with great affinity for research and development, and a proud recipient of the Nigerian Army Invention Medal. He had a sting of operational experience in Darfur as a member of African Union Mission in Sudan.Brigadier General Edward Adeyemi Koleoso enjoys playing Squash, Jogging and listening to classical music.",
+                // destignation: 449.99,
+                image: "img/Koleoso.jpg",
+                category: "Director, Department of Coordination",
+                features: [
+                    // "Medical-grade heart rate monitoring",
+                    // "GPS + GLONASS positioning",
+                    // "Water-resistant up to 100m",
+                    // "14-day battery life",
+                    // "Advanced sleep tracking",
+                    // "ECG and blood oxygen monitoring",
+                    // "Cellular connectivity option",
+                    // "Premium sapphire glass display"
+                ],
+                // rating: 4.7,
+                // reviews: 189
+            },
+            {
+                id: 3,
+                title: "Brig Gen Mohammed Sani Usman",
+                description: "Brig Gen Mohammed Sani Usman was born on 9 September 1975 in Roni, Jigawa State. The Senior Officer was commissioned into the Nigerian Army in 1999 as a member of the 46 Regular Course of Nigerian Defence Academy.  He holds a Master of Philosophy Degree in Security and Strategic Studies from Nigerian Defence Academy as well as Master degree in International Affairs and Diplomacy and a Master\ in Law Enforcement and Criminal Justice from the Ahmadu Bello University Zaria.During the Course of his career, the Senior Officer has attended several military courses which includes; Young Officers’ Course (Infantry), Basic and Advanced Airborne Courses, Company Amphibious Operations Course, Military Observe Course, Volleyball Coaching and Officiating Course, Basic Unarmed Combat Course and Advanced Physical Training Course. Others are Mortar Platoon Commanders’ Course, Police Administration and Security Management Course, Commanding Officers’ Course (Infantry) and Senior Physical Training Officers Executive Management Course. He has also attended the Junior and Senior Staff Courses at the Armed Forces Command and Staff College, Jaji,The Senior Officer has held a number of appointments which includes; Platoon Comd/Coy 2ic 65 Battalion, Instructor/Admin Officer Depot Nigerian Army Recruit Centre, Company 2iC/Operations Officer 73 Battalion and Army School of Physical Training as Chief Instructor. He was equally served as SO2 Plans at Army Headquarters Department of Policy and Plans, Directing Staff Armed Forces Command and Staff College, Commandant Nigerian Army Sports Camp and Chief of Staff Amphibious Training School.Brig Gen MS Usman is currently the Director Higher Military Organization and Operations at the National Defence College Nigeria. The Senior Officer enjoys travelling and making friends.  He is married and the union is blessed with 5 children.",
+                // destignation: 3299.99,
+                image: "img/usman.jpg",
+                category: "Director, Department of Higher Military Organisations (DHMO)",
+                // features: [
+                //     "45MP full-frame BSI CMOS sensor",
+                //     "8K 30p video recording",
+                //     "5-axis in-body stabilization",
+                //     "Dual CFexpress card slots",
+                //     "Weather-sealed magnesium alloy body",
+                //     "Advanced AI autofocus system",
+                //     "4.2 million dot OLED viewfinder",
+                //     "4K 120p slow-motion video"
+                // ],
+                // rating: 4.9,
+                // reviews: 156
+            },
+            {
+                id: 4,
+                title: "Patrick James EDEM",
+                description: "Air Commodore Patrick James Edem was born on 30 Dec 72. He hails from Itu Local Government Area of Akwa Ibom State. He was enlisted into the Nigerian Air Force (NAF) as a member of Nigerian Defence Academy (NDA) Regular Course (RC) 44, on 14 Aug 92 and was commissioned Plt Offr on 20 Sep 97. The Senior Officer obtained a Bachelor’s Degree in Mechanical Engineering. Master of Arts (MA) in Conflict Peace and Security from Kofi Anan International Peace Keeping Training Centre Accra-Ghana, Master of Science (MSc) in Defence and International Politics from Ghana Institute of Management and Public Administration Accra-Ghana amongst others.The Senior Officer has attended several courses namely; Aeromechanical Engineering Course at 320 Technical Training Group (now AFIT) Kaduna, Instructional Technique Course AFIT, Local Typerating Course (LOTRAC) on L-39ZA aircraft at 303 Flying Training School (FTS) Kano, Aircraft Maintenance Planning Course at AMECON Lagos, Negotiation Skills Course ASCON Badagry, Quality Assurance Course Pakistan, Engineering Control Officer’s Course at 431 Engr Gp Kaduna. Others are the Junior and Senior Staff Courses at Armed Forces Command and Staff College Jaji, as well as Higher Defence Management Course at the National Defence College Nigeria.He has served in various capacities which includes; Instructor 320 Technical Training Group (TTG) Kaduna, Security Officer to Air Officer Commanding (AOC) Logistics Command, Security Officer to AOC Training Command (TC), SO2 Statistics at HQ TC, Engineering Officer 303 FTS Kano, Staff Officer Air Engineering at the LOTRAC Secretariat now NAFTRAC Secretariat; Ag SO1 Statistics HQ NAF Directorate of Aircraft Engineering (DAE), Project Manager (Helicopters) PIMT, Directing Staff, Armed Forces Command and Staff College Jaji, Directing Staff, Armed Forces Command and Staff College Jaji, Deputy Director Maintenance HQ NAF (DAE); Deputy Director Aircraft Engineering (HQ NAF); Directing Staff, National Defence College Abuja amongst others.Air Cdre PJ Edem is happily married and the marriage is blessed with 3 boys and one girl. At his leisure time, he enjoys playing musical keyboard, listening to gospel music as well as jazz instrumentals. He also loves watching nature and reading inspirational books.",
+                // destignation: 2499.99,
+                image: "img/james.jpg",
+                category: "Computers",
+                features: [
+                    // "NVIDIA GeForce RTX 4080 16GB",
+                    // "360Hz QHD IPS display",
+                    // "Intel Core i9-13900HX processor",
+                    // "64GB DDR5 RAM",
+                    // "2TB PCIe 4.0 NVMe SSD",
+                    // "Advanced vapor chamber cooling",
+                    // "Per-key RGB keyboard",
+                    // "Thunderbolt 4 ports"
+                ],
+                // rating: 4.8,
+                // reviews: 312
+            },
+            {
+                id: 5,
+                title: "Ambassador Akin Oyateru",
+                description:"Ambassador Akin Oyateru joined the Ministry of Foreign Affairs of Nigeria in 1980 and holds a BSc in Political Science and a Masters degree in International and Diplomacy from the Universities of Ife and Lagos respectively.During the course of his service, he deployed to various Departments at the Ministry Headquarters including those of Protocol, Africa, International Organisations, Policy Planning, Administration, Asia & Pacific and the State House, Abuja among others. He has also served at various Nigerian Missions overseas among which are Poland, Austria, Namibia and Ireland. An accomplished Diplomat, he has also represented the country at many international conferences.One time Chief of Protocol of the Foreign Ministry, he served as the Chief Protocol Officer during the Presidential Inauguration Ceremonies in 1999, 2003 and that of 2007. He has also handled other protocol assignments involving visiting Heads of State and other Very Important Personalities.The Ambassador was also a Director of the Asia & Pacific Division of the Ministry of Foreign Affairs in Nigeria and was a past Minister/Head of Political Affairs Section of the Nigeria High Commission, London from 2008 to 2012. He served as High Commissioner to Kenya with concurrent accreditation to Seychelles and Permanent Representative of Nigeria to UNEP and UN Habitat between 2012 and 2015.Amb. Akin Oyateru retired from the Foreign Service after meritorious service in 2015. He was the Project Management Lead, of the Federal Integrated Staff Housing (FISH) in the Office of the Head of Service of the Federation (OHSCF) between 2017 – 2019. Before his current engagement as Director, National Geopolitical Affairs at the NDC, the distinguished diplomat was a Consultant in Public and International Affairs. Given his vast experience in the field, his expertise on the subject of Protocol Practice and Etiquette is much sought after. The Ambassador is married and the union is blessed with children. His hobbies include squash, golf, reading, traveling and the Arts.",
+                // destignation: 89.99,
+                image:"img/akin.jpg",
+                category: "Director, Department of National and Geo-Political Affairs (DNGA)",
+                features: [
+                    // "65W total charging power",
+                    // "Simultaneous 3-device charging",
+                    // "Qi2 and MagSafe compatible",
+                    // "Active cooling system",
+                    // "Foreign object detection",
+                    // "LED charging indicators",
+                    // "Non-slip silicone surface",
+                    // "Premium aluminum construction"
+                ],
+                // rating: 4.6,
+                // reviews: 178
+            },
+            {
+                id: 6,
+                title: "Commodore Olukayode Akinwumi Oshatunberu",
+                description:"Cdre Olukayode Akinwumi Oshatunberu DSS BEng psc (+) fwc MSc was born on 22 July 1975 and hails from Igede in Irepodun /Ifelodun Local Government Area of Ekiti State. The senior officer was commissioned Sub Lieutenant in the Nigerian Navy as a member of 45 Regular Course in 1998. He holds a Bachelor of Engineering degree in mechanical engineering from the Nigerian Defence Academy, Kaduna, a Master of Science degree in mechanical engineering from the University of Lagos, and a Master of Science degree in Strategic Studies from the University of Ibadan.  He is currently undertaking a doctorate in Sustainable Development at EUCLID University.The senior officer has attended several military courses both at home and abroad.  Some these include the Junior Staff and Warfare Course at the South African Naval Staff College, Senior Staff Course at the Armed Forces Command and Staff College (AFCSC), Jaji, Nigeria and the Defence and Strategic Course at the National Defence College Abuja.Olukayode has held various appointments in the course of his career. On commission, he was appointed onboard NNS AYAM then in Sierra Leone and deployed as a member of the ECOMOG Naval Ground Task Force participating actively in ground operations to secure Freetown.  He was also the Navigation and Gunnery Officer onboard the Sierra Leone Naval Ship ALLIMMAMY RASIN.  The senior officer was the Assistant Marine Engineering Officer NNS LANA, NNS OHUE and NNS ARADU as well as the Marine Engineering Officer NNS EKUN and NNS OBULA at various times.  He was also the OiC Special Boats Maintenance Team, Sea Training Command Lagos, Assistant Fleet Support Marine Engineering Officer (WEST) and SO1 Marine Engineering at Naval Headquarters.The senior officer was a Directing Staff (DS) and Chief Instructor at the AFCSC Jaji, General Manager Business Development at the Naval Building and Construction Company Limited, and the Deputy Director R&D at the Defence Space Administration before his posting to NDC as a DS.  He is currently the Director Department of Academic Research and Analytical Support at the College.Olukayode is a marine engineer, project manager, researcher as well as a Health Safety and Environment (HSE) auditor.  He is a member of several professional bodies. These include the Nigerian Society of Engineers, Nigerian Institute of Safety Professionals, Institute of Marine Engineering Science and Technology UK well as the Project Management Institute USA.  Akinwumi is married and blessed with children. He enjoys travelling and listening to music.",
+                // destignation: 129.99,
+                image: "img/akinwunmi.jpg",
+                category: "Director, Department of National and Geo-Political Affairs (DNGA)",
+                features: [
+                //     "360-degree surround sound",
+                //     "IP67 waterproof and dustproof",
+                //     "24-hour battery life",
+                //     "Party Mode (connect 100+ speakers)",
+                //     "Bluetooth 5.3 with extended range",
+                //     "Built-in microphone for calls",
+                //     "Customizable EQ via app",
+                //     "Rugged, portable design"
+                // 
+            ],
+                // rating: 4.7,
+                // reviews: 267
+            },
+            {
+                id: 7,
+                title: "Commodore Ayodele Keshinro Famuyiwa",
+                description: "Air Commodore Ayodele Keshinro Famuyiwa specialises in public affairs and strategic communications. He commenced his military career about 34 years ago when he was admitted into the Nigerian Defence Academy on 17 August 1990 as a member of 42 Regular Course. On successful completion of his cadet training, he was commissioned Pilot Officer in the Nigerian Air Force in September 1995. Among the professional military courses attended by the senior officer include Junior and Senior Staff and Command Courses at the Armed Forces Command and Staff College, Jaji-Nigeria; International Press and Information Officers’ Course at the Swedish Armed Forces International Centre (SWEDINT), Stockholm, and Higher Defence and Strategic Studies Course at the National Defence College, Nigeria.In the course of his career, the senior officer has held both staff and instructional appointments. He has been a member of Faculty at the operational and strategic military training institutions, an opportunity that enables him to make tremendous contributions to human capacity development in the Armed Forces of Nigeria. He was a Directing Staff and later appointed the Director of Coordination at the Air Force War College, Nigeria. He was twice a Directing Staff at the National Defence College Nigeria prior to his present appointment as the Director Information Communications Technology. Other appointments held include Deputy Director of Information at the Defence Headquarters, and Media Coordinator/Theatre Information Officer, Operation LAFIYA DOLE. He has also served twice at different times as Spokesperson/Director of Public Relations and Information Management, Headquarters Nigerian Air Force.Air Cdre Famuyiwa holds several academic qualifications, some of which include MSc Human Resource Management from the University of Birmingham, United Kingdom; Master degree in Environmental Management from the University of Lagos, Nigeria; and BSc (Hons) Chemistry from the Nigerian Defence Academy, Kaduna. His other qualifications include Postgraduate Diploma in Journalism from the Nigerian Institute of Journalism, and Diploma in Public Administration.He is a member of the Chevening Global Community. His other professional membership includes the Chartered Institute of Personnel Development (CIPD), United Kingdom; Nigerian Institute of Management (NIM), and Nigerian Institute of Public Relations (NIPR).",
+              // destignation: 599.99,
+                image: "img/famuyiwa.jpg",
+                category: "Director, Department of Information and Communications Technology (DICT) ",
+                features: [
+                    // "4D adjustable lumbar support",
+                    // "Breathable mesh backrest",
+                    // "Italian premium leather seat",
+                    // "Synchronized tilt mechanism",
+                    // "Adjustable headrest and armrests",
+                    // "High-density memory foam",
+                    // "360-degree smooth-rolling casters",
+                    // "10-year warranty"
+                ],
+                // rating: 4.9,
+                // reviews: 89
+            },
+            {
+                id: 8,
+                title: "Brig Gen EC Emere",
+                description: "Brig Gen EC Emere is an Education officer, commissioned in 1993. He hails from Umunze in Orumber South Local Government Area of Anambra state. He obtained Bachelor of Science Degree in Agricultural Economics from University of Maiduguri, Master of Science in Legal Criminology and Security Psychology from University of Ibadan as well as Master of Arts in Peace and Strategic Studies from University of Ilorin . He also obtained Post Graduate Diploma in Education from Tai Solarin University of Education. Brig Gen Emere is a member of Teachers Registration Council of Nigeria and Chattered Institute of Peace and Conciliation of Nigeria.Since his commission, he has attended several courses in the Nigerian Army, among which include: Nigerian Army Education Corps Executive Management course. Brig Gen Emere has served in many formations /Units among which  are Head Quarters Nigerian Army Education Corps, Yaba Lagos, Command Secondary School Oshodi Lagos  as Commandant, Nigerian Army Archives Lagos as Acting Director,  Nigerian Military School Zaria as a Deputy Commandant. National Defence College Abuja as Deputy Director Curriculum as well as the pioneer Acting Director Education 8 Task Force  Division Monguno, Borno State.He also served at Army Head Quarters Directorate of Civil Military Affairs. Others formations/Units he served include: Defence Industries Corporation of Nigeria as Director Research and Development as well as at Army War College Nigeria as Director Curriculum Development. He also served at National Institute for Policy and Strategic Studies, Kuru as a Senior Defence Fellow He is currently the Director DHRA at NDC.His hobbies include reading and watching nature. He is happily married to Mrs Uju Georgina Emere with Children.",
+                // destignation: 199.99,
+                image:"img/emere.jpg", 
+                category: "Director, Department of History Research and Archives (DHRA)",
+                features: [
+                    // "Voice control with natural language",
+                    // "Multi-room audio synchronization",
+                    // "Zigbee, Z-Wave, and Thread support",
+                    // "Built-in privacy mode",
+                    // "AI-powered routine learning",
+                    // "HD audio with Dolby Atmos",
+                    // "Local processing for privacy",
+                    // "Continuous software updates"
+                ],
+                // rating: 4.8,
+                // reviews: 145
+            },
+            {
+                id: 6,
+                title: "Commodore Olukayode Akinwumi Oshatunberu",
+                description:"Cdre Olukayode Akinwumi Oshatunberu DSS BEng psc (+) fwc MSc was born on 22 July 1975 and hails from Igede in Irepodun /Ifelodun Local Government Area of Ekiti State. The senior officer was commissioned Sub Lieutenant in the Nigerian Navy as a member of 45 Regular Course in 1998. He holds a Bachelor of Engineering degree in mechanical engineering from the Nigerian Defence Academy, Kaduna, a Master of Science degree in mechanical engineering from the University of Lagos, and a Master of Science degree in Strategic Studies from the University of Ibadan.  He is currently undertaking a doctorate in Sustainable Development at EUCLID University.The senior officer has attended several military courses both at home and abroad.  Some these include the Junior Staff and Warfare Course at the South African Naval Staff College, Senior Staff Course at the Armed Forces Command and Staff College (AFCSC), Jaji, Nigeria and the Defence and Strategic Course at the National Defence College Abuja.Olukayode has held various appointments in the course of his career. On commission, he was appointed onboard NNS AYAM then in Sierra Leone and deployed as a member of the ECOMOG Naval Ground Task Force participating actively in ground operations to secure Freetown.  He was also the Navigation and Gunnery Officer onboard the Sierra Leone Naval Ship ALLIMMAMY RASIN.  The senior officer was the Assistant Marine Engineering Officer NNS LANA, NNS OHUE and NNS ARADU as well as the Marine Engineering Officer NNS EKUN and NNS OBULA at various times.  He was also the OiC Special Boats Maintenance Team, Sea Training Command Lagos, Assistant Fleet Support Marine Engineering Officer (WEST) and SO1 Marine Engineering at Naval Headquarters.The senior officer was a Directing Staff (DS) and Chief Instructor at the AFCSC Jaji, General Manager Business Development at the Naval Building and Construction Company Limited, and the Deputy Director R&D at the Defence Space Administration before his posting to NDC as a DS.  He is currently the Director Department of Academic Research and Analytical Support at the College.Olukayode is a marine engineer, project manager, researcher as well as a Health Safety and Environment (HSE) auditor.  He is a member of several professional bodies. These include the Nigerian Society of Engineers, Nigerian Institute of Safety Professionals, Institute of Marine Engineering Science and Technology UK well as the Project Management Institute USA.  Akinwumi is married and blessed with children. He enjoys travelling and listening to music.",
+                // destignation: 129.99,
+                image: "img/akinwunmi.jpg",
+                category: "Director, Department of National and Geo-Political Affairs (DNGA)",
+                features: [
+                //     "360-degree surround sound",
+                //     "IP67 waterproof and dustproof",
+                //     "24-hour battery life",
+                //     "Party Mode (connect 100+ speakers)",
+                //     "Bluetooth 5.3 with extended range",
+                //     "Built-in microphone for calls",
+                //     "Customizable EQ via app",
+                //     "Rugged, portable design"
+                // 
+            ],
+                // rating: 4.7,
+                // reviews: 267
+            },
+            {
+                id: 7,
+                title: "Commodore Ayodele Keshinro Famuyiwa",
+                description: "Air Commodore Ayodele Keshinro Famuyiwa specialises in public affairs and strategic communications. He commenced his military career about 34 years ago when he was admitted into the Nigerian Defence Academy on 17 August 1990 as a member of 42 Regular Course. On successful completion of his cadet training, he was commissioned Pilot Officer in the Nigerian Air Force in September 1995. Among the professional military courses attended by the senior officer include Junior and Senior Staff and Command Courses at the Armed Forces Command and Staff College, Jaji-Nigeria; International Press and Information Officers’ Course at the Swedish Armed Forces International Centre (SWEDINT), Stockholm, and Higher Defence and Strategic Studies Course at the National Defence College, Nigeria.In the course of his career, the senior officer has held both staff and instructional appointments. He has been a member of Faculty at the operational and strategic military training institutions, an opportunity that enables him to make tremendous contributions to human capacity development in the Armed Forces of Nigeria. He was a Directing Staff and later appointed the Director of Coordination at the Air Force War College, Nigeria. He was twice a Directing Staff at the National Defence College Nigeria prior to his present appointment as the Director Information Communications Technology. Other appointments held include Deputy Director of Information at the Defence Headquarters, and Media Coordinator/Theatre Information Officer, Operation LAFIYA DOLE. He has also served twice at different times as Spokesperson/Director of Public Relations and Information Management, Headquarters Nigerian Air Force.Air Cdre Famuyiwa holds several academic qualifications, some of which include MSc Human Resource Management from the University of Birmingham, United Kingdom; Master degree in Environmental Management from the University of Lagos, Nigeria; and BSc (Hons) Chemistry from the Nigerian Defence Academy, Kaduna. His other qualifications include Postgraduate Diploma in Journalism from the Nigerian Institute of Journalism, and Diploma in Public Administration.He is a member of the Chevening Global Community. His other professional membership includes the Chartered Institute of Personnel Development (CIPD), United Kingdom; Nigerian Institute of Management (NIM), and Nigerian Institute of Public Relations (NIPR).",
+              // destignation: 599.99,
+                image: "img/famuyiwa.jpg",
+                category: "Director, Department of Information and Communications Technology (DICT) ",
+                features: [
+                    // "4D adjustable lumbar support",
+                    // "Breathable mesh backrest",
+                    // "Italian premium leather seat",
+                    // "Synchronized tilt mechanism",
+                    // "Adjustable headrest and armrests",
+                    // "High-density memory foam",
+                    // "360-degree smooth-rolling casters",
+                    // "10-year warranty"
+                ],
+                // rating: 4.9,
+                // reviews: 89
+            },
+            {
+                id: 8,
+                title: "Commodore Mayowa Sunday Olukoya",
+                description:"Cdre Olukayode Akinwumi Oshatunberu DSS BEng psc (+) fwc MSc was born on 22 July 1975 and hails from Igede in Irepodun /Ifelodun Local Government Area of Ekiti State. The senior officer was commissioned Sub Lieutenant in the Nigerian Navy as a member of 45 Regular Course in 1998. He holds a Bachelor of Engineering degree in mechanical engineering from the Nigerian Defence Academy, Kaduna, a Master of Science degree in mechanical engineering from the University of Lagos, and a Master of Science degree in Strategic Studies from the University of Ibadan.  He is currently undertaking a doctorate in Sustainable Development at EUCLID University.The senior officer has attended several military courses both at home and abroad.  Some these include the Junior Staff and Warfare Course at the South African Naval Staff College, Senior Staff Course at the Armed Forces Command and Staff College (AFCSC), Jaji, Nigeria and the Defence and Strategic Course at the National Defence College Abuja.Olukayode has held various appointments in the course of his career. On commission, he was appointed onboard NNS AYAM then in Sierra Leone and deployed as a member of the ECOMOG Naval Ground Task Force participating actively in ground operations to secure Freetown.  He was also the Navigation and Gunnery Officer onboard the Sierra Leone Naval Ship ALLIMMAMY RASIN.  The senior officer was the Assistant Marine Engineering Officer NNS LANA, NNS OHUE and NNS ARADU as well as the Marine Engineering Officer NNS EKUN and NNS OBULA at various times.  He was also the OiC Special Boats Maintenance Team, Sea Training Command Lagos, Assistant Fleet Support Marine Engineering Officer (WEST) and SO1 Marine Engineering at Naval Headquarters.The senior officer was a Directing Staff (DS) and Chief Instructor at the AFCSC Jaji, General Manager Business Development at the Naval Building and Construction Company Limited, and the Deputy Director R&D at the Defence Space Administration before his posting to NDC as a DS.  He is currently the Director Department of Academic Research and Analytical Support at the College.Olukayode is a marine engineer, project manager, researcher as well as a Health Safety and Environment (HSE) auditor.  He is a member of several professional bodies. These include the Nigerian Society of Engineers, Nigerian Institute of Safety Professionals, Institute of Marine Engineering Science and Technology UK well as the Project Management Institute USA.  Akinwumi is married and blessed with children. He enjoys travelling and listening to music.",
+                // destignation: 129.99,
+                image: "img/olukoya.jpg",
+                category: "Director of Finance and Accounts",
+                features: [
+                //     "360-degree surround sound",
+                //     "IP67 waterproof and dustproof",
+                //     "24-hour battery life",
+                //     "Party Mode (connect 100+ speakers)",
+                //     "Bluetooth 5.3 with extended range",
+                //     "Built-in microphone for calls",
+                //     "Customizable EQ via app",
+                //     "Rugged, portable design"
+                // 
+            ],
+                // rating: 4.7,
+                // reviews: 267
+            },
+            {
+                id: 9,
+                title: "Commodore Ayodele Keshinro Famuyiwa",
+                description: "Air Commodore Ayodele Keshinro Famuyiwa specialises in public affairs and strategic communications. He commenced his military career about 34 years ago when he was admitted into the Nigerian Defence Academy on 17 August 1990 as a member of 42 Regular Course. On successful completion of his cadet training, he was commissioned Pilot Officer in the Nigerian Air Force in September 1995. Among the professional military courses attended by the senior officer include Junior and Senior Staff and Command Courses at the Armed Forces Command and Staff College, Jaji-Nigeria; International Press and Information Officers’ Course at the Swedish Armed Forces International Centre (SWEDINT), Stockholm, and Higher Defence and Strategic Studies Course at the National Defence College, Nigeria.In the course of his career, the senior officer has held both staff and instructional appointments. He has been a member of Faculty at the operational and strategic military training institutions, an opportunity that enables him to make tremendous contributions to human capacity development in the Armed Forces of Nigeria. He was a Directing Staff and later appointed the Director of Coordination at the Air Force War College, Nigeria. He was twice a Directing Staff at the National Defence College Nigeria prior to his present appointment as the Director Information Communications Technology. Other appointments held include Deputy Director of Information at the Defence Headquarters, and Media Coordinator/Theatre Information Officer, Operation LAFIYA DOLE. He has also served twice at different times as Spokesperson/Director of Public Relations and Information Management, Headquarters Nigerian Air Force.Air Cdre Famuyiwa holds several academic qualifications, some of which include MSc Human Resource Management from the University of Birmingham, United Kingdom; Master degree in Environmental Management from the University of Lagos, Nigeria; and BSc (Hons) Chemistry from the Nigerian Defence Academy, Kaduna. His other qualifications include Postgraduate Diploma in Journalism from the Nigerian Institute of Journalism, and Diploma in Public Administration.He is a member of the Chevening Global Community. His other professional membership includes the Chartered Institute of Personnel Development (CIPD), United Kingdom; Nigerian Institute of Management (NIM), and Nigerian Institute of Public Relations (NIPR).",
+              // destignation: 599.99,
+                image: "img/famuyiwa.jpg",
+                category: "Director, Department of Information and Communications Technology (DICT) ",
+                features: [
+                    // "4D adjustable lumbar support",
+                    // "Breathable mesh backrest",
+                    // "Italian premium leather seat",
+                    // "Synchronized tilt mechanism",
+                    // "Adjustable headrest and armrests",
+                    // "High-density memory foam",
+                    // "360-degree smooth-rolling casters",
+                    // "10-year warranty"
+                ],
+                // rating: 4.9,
+                // reviews: 89
+            },
+        ];
+
+        // Global variables
+        let autoScrollInterval = null;
+        let isAutoScrolling = true;
+        let currentDetailProduct = null;
+        let currentGridColumns = 4;
+        let filteredProducts = [...productData];
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after a delay
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Initial render
+            updateGridColumns();
+            renderProducts();
+            updateStats();
+            setupEventListeners();
+            startAutoScroll();
+            
+            // Setup responsive grid columns
+            setupResponsiveGrid();
+        });
+
+        // Setup responsive grid based on screen size
+        function setupResponsiveGrid() {
+            function updateGridForScreen() {
+                const width = window.innerWidth;
+                let columns = 4; // Default for large screens
+                
+                if (width < 576) columns = 1;  // Mobile phones
+                else if (width < 768) columns = 2;  // Tablets portrait
+                else if (width < 992) columns = 3;  // Tablets landscape / small laptops
+                else if (width < 1200) columns = 4; // Desktops
+                else columns = 5;  // Large desktops
+                
+                if (width >= 1920) columns = 6;  // Ultra-wide screens
+                
+                currentGridColumns = columns;
+                updateGridColumns();
+            }
+            
+            // Initial update
+            updateGridForScreen();
+            
+            // Update on resize (with debounce)
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(updateGridForScreen, 250);
+            });
+        }
+
+        // Update grid columns
+        function updateGridColumns() {
+            const cardGrid = document.getElementById('card-grid');
+            cardGrid.className = 'card-grid';
+            cardGrid.classList.add(`grid-${currentGridColumns}`);
+            
+            // Update active view button
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.dataset.columns) === currentGridColumns) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Render products to grid
+        function renderProducts() {
+            const cardGrid = document.getElementById('card-grid');
+            
+            if (filteredProducts.length === 0) {
+                cardGrid.innerHTML = '<div class="no-results">No products found. Try adjusting your search.</div>';
+                return;
+            }
+            
+            cardGrid.innerHTML = filteredProducts.map(product => `
+                <div class="card" data-id="${product.id}">
+                    <div class="card-badge">${product.category}</div>
+                    <div class="card-image-container">
+                        <img src="${product.image}" 
+                             alt="${product.title}" 
+                             class="card-image"
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\"image-fallback\"><i class=\"fas fa-box\"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${product.title}</h3>
+                        <p class="card-description">${product.description}</p>
+                        <div class="card-footer">
+                           
+                            <button class="read-more-btn" onclick="showDetail(${product.id})">
+                                <i class="fas fa-eye"></i> Read More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add animation to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animation = `fadeIn 0.5s ease ${index * 0.05}s both`;
+            });
+        }
+
+        // Show product detail page
+        function showDetail(productId) {
+            const product = productData.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentDetailProduct = product;
+            
+            // Update detail page content
+            document.getElementById('detail-title').textContent = product.title;
+            document.getElementById('detail-category').textContent = product.category;
+            // document.getElementById('detail-destignation').textContent = `$${product.destignation.(2)}`;
+            document.getElementById('detail-description').textContent = product.description;
+            
+            const detailImage = document.getElementById('detail-image');
+            detailImage.src = product.image;
+            detailImage.alt = product.title;
+            
+            // Update features grid
+            const featureGrid = document.getElementById('feature-grid');
+            featureGrid.innerHTML = product.features.map(feature => `
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-check"></i></div>
+                    <div class="feature-text">${feature}</div>
+                </div>
+            `).join('');
+            
+            // Update rating
+            // const stars = document.querySelector('.stars');
+            // stars.innerHTML = Array.from({length: 5}, (_, i) => {
+            //     if (i < Math.floor(product.rating)) {
+            //         return '<i class="fas fa-star"></i>';
+            //     } else if (i === Math.floor(product.rating) && product.rating % 1 >= 0.5) {
+            //         return '<i class="fas fa-star-half-alt"></i>';
+            //     } else {
+            //         return '<i class="far fa-star"></i>';
+            //     }
+            // }).join('');
+            
+            // document.querySelector('.rating-text').textContent = `${product.rating} (${product.reviews} reviews)`;
+            
+            // Update header gradient based on category
+            const header = document.querySelector('.detail-header');
+            const colors = {
+                // 'Audio': ['#667eea', '#1e5c5f'],
+                // 'Wearables': ['#f093fb', '#f5576c'],
+                // 'Photography': ['#4facfe', '#00f2fe'],
+                // 'Computers': ['#43e97b', '#38f9d7'],
+                // 'Accessories': ['#fa709a', '#fee140'],
+                // 'Office': ['#a8edea', '#fed6e3'],
+                // 'Smart Home': ['#ffecd2', '#fcb69f']
+            };
+            
+            const gradient = colors[product.category] || ['#667eea', '#1e5c5f'];
+            header.style.background = `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})`;
+            
+            // Switch to detail page with animation
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('detail-page').classList.add('active');
+            
+            // Add animation to detail page
+            const detailPage = document.getElementById('detail-page');
+            detailPage.style.animation = 'slideInRight 0.5s ease';
+            
+            // Stop auto-scroll when viewing details
+            stopAutoScroll();
+            
+            // Update URL for sharing (optional)
+            history.pushState({ productId }, '', `?product=${productId}`);
+        }
+
+        // Go back to main grid
+        function goBack() {
+            // Add fade out animation
+            const detailPage = document.getElementById('detail-page');
+            detailPage.style.animation = 'slideInRight 0.5s ease reverse';
+            
+            setTimeout(() => {
+                document.getElementById('detail-page').classList.remove('active');
+                document.getElementById('main-page').style.display = 'block';
+                detailPage.style.animation = '';
+                
+                // Restart auto-scroll
+                startAutoScroll();
+                
+                // Update history
+                history.pushState({}, '', window.location.pathname);
+            }, 300);
+        }
+
+        // Search functionality
+        // function filterProducts() {
+        //     const searchInput = document.getElementById('search-input');
+        //     const searchTerm = searchInput.value.toLowerCase().trim();
+            
+        //     if (searchTerm === '') {
+        //         filteredProducts = [productData];
+        //     } else {
+        //         filteredProducts = productData.filter(product => 
+        //             product.title.toLowerCase().includes(searchTerm) || 
+        //             product.description.toLowerCase().includes(searchTerm) ||
+        //             product.category.toLowerCase().includes(searchTerm) ||
+        //             product.features.some(feature => 
+        //                 feature.toLowerCase().includes(searchTerm)
+        //             )
+        //         );
+        //     }
+            
+        //     renderProducts(filterProducts);
+        //     updateStats();
+        // }
+         function filterProducts() {
+            const searchInput = document.getElementById('search-input');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                renderProducts(productData);
+                return;
+            }
+            
+            const filteredProducts = productData.filter(product => 
+                product.title.toLowerCase().includes(searchTerm) || 
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+            );
+            
+            renderProducts(filteredProducts);
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('product-count').textContent = productData.length;
+            document.getElementById('filter-count').textContent = filteredProducts.length;
+        }
+
+        // Auto-scroll functions
+        function startAutoScroll() {
+            if (isAutoScrolling) return;
+            
+            isAutoScrolling = true;
+            updateScrollIndicator();
+            
+            const cardGrid = document.getElementById('card-grid');
+            let scrollSpeed = 1; // Default slow speed
+            
+            // Adjust speed based on screen size
+            if (window.innerWidth < 768) scrollSpeed = 1.5;  // Faster on mobile
+            else if (window.innerWidth < 1200) scrollSpeed = 1.2;  // Medium on tablets
+            else scrollSpeed = 1;  // Slow on desktops
+            
+            autoScrollInterval = setInterval(() => {
+                const maxScroll = cardGrid.scrollHeight - cardGrid.clientHeight;
+                
+                if (cardGrid.scrollTop >= maxScroll - 50) {
+                    cardGrid.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    cardGrid.scrollBy({ top: scrollSpeed, behavior: 'smooth' });
+                }
+            }, 30);
+        }
+
+        function stopAutoScroll() {
+            isAutoScrolling = false;
+            if (autoScrollInterval) {
+                clearInterval(autoScrollInterval);
+                autoScrollInterval = null;
+            }
+            updateScrollIndicator();
+        }
+
+        function toggleAutoScroll() {
+            if (isAutoScrolling) {
+                stopAutoScroll();
+            } else {
+                startAutoScroll();
+            }
+        }
+
+        function updateScrollIndicator() {
+            const scrollIcon = document.getElementById('scroll-icon');
+            const scrollText = document.getElementById('scroll-text');
+            const pauseIcon = document.getElementById('pause-icon');
+            
+            if (isAutoScrolling) {
+                scrollIcon.className = 'fas fa-play';
+                scrollText.textContent = 'Auto-scrolling';
+                pauseIcon.className = 'fas fa-play';
+            } else {
+                scrollIcon.className = 'fas fa-pause';
+                scrollText.textContent = 'Paused';
+                pauseIcon.className = 'fas fa-pause';
+            }
+        }
+        
+
+        // Manual scroll controls
+        function scrollUp() {
+            const cardGrid = document.getElementById('card-grid');
+            const scrollAmount = window.innerHeight * 0.6; // Scroll 60% of viewport height
+            cardGrid.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+            stopAutoScroll();
+        }
+
+        function scrollDown() {
+            const cardGrid = document.getElementById('card-grid');
+            const scrollAmount = window.innerHeight * 0.6; // Scroll 60% of viewport height
+            cardGrid.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+            stopAutoScroll();
+        }
+
+        // Cart and wishlist functionality
+        function addToCart() {
+            if (!currentDetailProduct) return;
+            
+            showNotification(`${currentDetailProduct.title} added to cart!`, 'success');
+            
+            // Optional: Provide haptic feedback on mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function addToWishlist() {
+            if (!currentDetailProduct) return;
+            
+            showNotification(`${currentDetailProduct.title} added to wishlist!`, 'info');
+            
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 50, 50]);
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            // Remove existing notification if any
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const colors = {
+                success: '#4CAF50',
+                info: '#2196F3',
+                warning: '#FF9800',
+                error: '#F44336'
+            };
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type]};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 12px;
+                z-index: 3000;
+                font-size: 1rem;
+                font-weight: 500;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+                animation: fadeIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                max-width: 400px;
+                backdrop-filter: blur(10px);
+            `;
+            
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search
+            document.getElementById('search-btn').addEventListener('click', filterProducts);
+            document.getElementById('search-input').addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') filterProducts();
+            });
+            
+            // Real-time search with debounce
+            let searchTimeout;
+            document.getElementById('search-input').addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(filterProducts, 300);
+            });
+            
+            // Auto-scroll controls
+            document.getElementById('pause-btn').addEventListener('click', toggleAutoScroll);
+            document.getElementById('scroll-up-btn').addEventListener('click', scrollUp);
+            document.getElementById('scroll-down-btn').addEventListener('click', scrollDown);
+            
+            // View options
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentGridColumns = parseInt(this.dataset.columns);
+                    updateGridColumns();
+                });
+            });
+            
+            // Pause auto-scroll on interaction
+            const cardGrid = document.getElementById('card-grid');
+            cardGrid.addEventListener('wheel', stopAutoScroll);
+            cardGrid.addEventListener('touchstart', stopAutoScroll);
+            cardGrid.addEventListener('mousedown', stopAutoScroll);
+            
+            // Handle browser back button
+            window.addEventListener('popstate', function(event) {
+                if (document.getElementById('detail-page').classList.contains('active')) {
+                    goBack();
+                }
+            });
+            
+            // Add notification animation CSS
+            if (!document.querySelector('#notification-anim')) {
+                const style = document.createElement('style');
+                style.id = 'notification-anim';
+                style.textContent = `
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(-20px) translateX(20px); }
+                        to { opacity: 1; transform: translateY(0) translateX(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Space to toggle auto-scroll
+                if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+                    e.preventDefault();
+                    toggleAutoScroll();
+                }
+                // Escape to go back
+                if (e.code === 'Escape' && document.getElementById('detail-page').classList.contains('active')) {
+                    goBack();
+                }
+            });
+        }
+
+        // Handle window resize for responsive adjustments
+        window.addEventListener('resize', function() {
+            // Update grid columns on resize
+            setupResponsiveGrid();
+        });
+
+        // Check for product parameter in URL
+        function checkURLForProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('product');
+            if (productId) {
+                showDetail(parseInt(productId));
+            }
+        }
+
+        // Call on load to check for direct product links
+        setTimeout(checkURLForProduct, 100);
+    </script>
+</body>
+</html>
